@@ -111,6 +111,10 @@ public class Map implements Map2D, Serializable{
         }
         return ans;
     }
+    /**
+     * return the height og this 2d map
+     **/
+
 	@Override
 	public int getHeight() {
         int ans = -1;
@@ -119,6 +123,11 @@ public class Map implements Map2D, Serializable{
         }
         return ans;
     }
+    /**
+     * x – the x coordinate
+     * y – the y coordinate
+     * Returns: the [x][y] coordinate
+     **/
 	@Override
 	public int getPixel(int x, int y) {
         int ans = -1;
@@ -139,6 +148,16 @@ public class Map implements Map2D, Serializable{
         }
         return ans;
 	}
+
+    /**
+     * Set the [x][y] coordinate of the map to v.
+     * Specified by:
+     * setPixel in interface Map2D
+     * Params:
+     * x – the x coordinate
+     * y – the y coordinate
+     * v – the value that the entry at the coordinate [x][y] is set to.
+     * **/
 	@Override
 	public void setPixel(int x, int y, int v) {
         if (_ris == null) {return;}
@@ -146,12 +165,20 @@ public class Map implements Map2D, Serializable{
         if(x>=this._ris.length || y>=this._ris[0].length){return;}
         _ris[x][y] = v;
     }
+
+    /**
+     * Set p the x,y coordinate
+     * return the [p.x][p.y] (int) value of the map.
+     */
 	@Override
 	public void setPixel(Pixel2D p, int v) {
         if (p != null) {
             setPixel(p.getX(), p.getY(), v);
         }
     }
+    /**
+     * check all exceptions if a pixel is inside or not through boolean
+     * **/
 // p - inside if p.x<ris length & p.y<ris[]length and if they are >0(maybe equals too)
     @Override
     public boolean isInside(Pixel2D p) {
@@ -161,6 +188,9 @@ public class Map implements Map2D, Serializable{
         return x >= 0 && y >= 0 && x < getWidth() && y < getHeight();
     }
 
+    /**
+     *  function checks if two matrix have the same size of width and height
+     **/
     @Override
     public boolean sameDimensions(Map2D p) {
         boolean ans = false;
@@ -176,7 +206,10 @@ public class Map implements Map2D, Serializable{
         return ans;
     }
 
-    //sum of coad of matrix
+    /**
+     * if matrix have same dimensions so we get a new matrix with the sum of same coordinates of past two matrix
+     **/
+    //sum of cood of matrix
     @Override
     public void addMap2D(Map2D p) {
         if(p == null){return;}
@@ -190,7 +223,7 @@ public class Map implements Map2D, Serializable{
             }
         }
     }
-// multiplay matrix on double scalar but we have return it in int
+/** multiplay matrix on double scalar (all its coordinates) but we have return it in int **/
     @Override
     public void mul(double scalar) {
         //Exception
@@ -205,7 +238,9 @@ public class Map implements Map2D, Serializable{
             }
         }
     }
-// from the lessons, we have to change matrix, but stay with the same "picture" just in different zoom
+/** we have to change matrix, but stay with the same "picture" just in different zoom (save coordinates in the
+ * second matrix just in another proportion
+ **/
     @Override
     public void rescale(double sx, double sy) {
         if (_ris == null) {return;}
@@ -240,8 +275,8 @@ public class Map implements Map2D, Serializable{
      check all pixels in the matrix
      check distance from the center
      if our circle in matrix so to color area
-     to use index's methods I wrote before like distance  **/
-
+     **/
+    //to use index's methods I wrote before like distance
     @Override
     public void drawCircle(Pixel2D center, double rad, int color) {
         int centerX = center.getX();
@@ -258,7 +293,14 @@ public class Map implements Map2D, Serializable{
             }
         }
     }
-
+/** This method draws a line by changing the pixels between p1 to p2 to the newColor.
+ * assuming dx = |p2.x-p1.x|, dy = |p2.y-p1.y|, and both p1 and p2 are within this map.
+ * Note:
+ * 1. if p1 equals p2 - a single pixel will be drawn.
+ * 2. assuming dx>=dy & p1.x  all (x,round(f(x))
+ * 3. assuming dx>=dy & p1.x>p2.x: the line p2,p1 will be drawn.
+ * 4. assuming dx   all (y,round(g(y))
+ * 5. assuming dy>dx & p1.y>p2.y: the line p2,p1 will be drawn.**/
     @Override
     public void drawLine(Pixel2D p1, Pixel2D p2, int color) {
         //exceptions
@@ -309,7 +351,11 @@ public class Map implements Map2D, Serializable{
         }
 
     }
-
+/**
+ * This method draws a rectangle by changing all the pixels in
+ * this map which are within the [p1,p2] range to color.
+ * color – - the (new) color to be used in the drawing.
+ **/
     @Override
     public void drawRect(Pixel2D p1, Pixel2D p2, int color) {
         // the logic of the code from this part of class:
@@ -330,7 +376,15 @@ public class Map implements Map2D, Serializable{
             }
         }
     }
-
+    /**
+     * Fill the connected component of p in the new color (new_v).
+     * Note: the connected component of p are all the pixels in the map with the same "color" of map[p] which are connected to p.
+     * Note: two pixels (p1,p2) are connected if there is a path between p1 and p2 with the same color (of p1 and p2).
+     *  p the pixel to start from.
+     *  new_v - the new "color" to be filled in p's connected component.
+     *  if true --> the matrix is assumed to be cyclic.
+     * return the number of "filled" pixels.
+     */
     @Override
     public boolean equals(Object ob) {
         if (ob == null || !(ob instanceof Map)) {return false;}
@@ -353,6 +407,10 @@ public class Map implements Map2D, Serializable{
 	/**
 	 * Fills this map with the new color (new_v) starting from p.
 	 * https://en.wikipedia.org/wiki/Flood_fill
+     *
+     * Fill the connected component of p in the new color (new_v).
+     * Note: the connected component of p are all the pixels in the map with the same "color" of map[p]which are connected to p.
+     * Note: two pixels (p1,p2) are connected if there is a path between p1 and p2 with the same color (of p1 and p2)
 	 */
 	public int fill(Pixel2D xy, int new_v,  boolean cyclic) {
         int ans = 0;
@@ -405,7 +463,24 @@ public class Map implements Map2D, Serializable{
 	/**
 	 * BFS like shortest the computation based on iterative raster implementation of BFS, see:
 	 * https://en.wikipedia.org/wiki/Breadth-first_search
-	 */
+     * Compute the shortest valid path between p1 and p2.
+     * A valid path between p1 and p2 is defined as a path between p1 and p2 does NOT contain the absColor.
+     * A path is an ordered set of pixels where each consecutive pixels in the path are neighbors in this map.
+     * Two pixels are neighbors in the map, iff they are a single pixel apart (up,down, left, right).
+     * In case there is no valid path between p1 and p2 should return null;
+     * If this map is cyclic:
+     * 1. the pixel to the left of (0,i) is (getWidth()-1,i).
+     * 2. the pixel to the right of (getWidth()-1,i) is (0,i).
+     * 3. the pixel above (j,getHeight()-1) is (j,0).
+     * 4. the pixel below (j,0) is (j,getHeight()-1).
+     * Where 0<=i<getWidth(), 0<=j<getWidth().
+     *
+     * param p1 first coordinate (start point).
+     * param p2 second coordinate (end point).
+     * param obsColor the color which is addressed as an obstacle.
+     * return the shortest path as an array of consecutive pixels, if none - returns null.
+     * return a new map with all the shortest path distances from the starting point to each entry in this map.
+     **/
     public Pixel2D[] shortestPath(Pixel2D p1, Pixel2D p2, int obsColor, boolean cyclic) {
         Pixel2D[] ans = null;
         // the result.
@@ -487,7 +562,18 @@ public class Map implements Map2D, Serializable{
         }
         return ans;
     }
-
+/**
+ * Map2D
+ * Compute a new map (with the same dimension as this map) with the shortest path
+ * distance (obstacle avoiding) from the start point. None accessible entries should be marked -1.
+ * Specified by:
+ * allDistance in interface Map2D
+ * Params:
+ * start – the source (starting) point
+ * obsColor – the color representing obstacles
+ * Returns:
+ * a new map with all the shortest path distances from the starting point to each entry in this map
+ **/
     @Override
     public Map2D allDistance(Pixel2D start, int obsColor, boolean cyclic) {
         Map ans = new Map(getWidth(), getHeight(), -1);
