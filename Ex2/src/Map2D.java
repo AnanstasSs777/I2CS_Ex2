@@ -20,41 +20,41 @@ public interface Map2D {
      * @param h the height of the underlying 2D array.
      * @param v the init value of all the entries in the 2D array.
      */
-    public void init(int w, int h, int v);
+    public void init(int w, int h, int v);// done
     /**
      * Constructs a new 2D raster map from a given 2D int array (deep copy).
      * @throws RuntimeException if arr == null or if the array is empty or a ragged 2D array.
      * @param arr a 2D int array.
      */
-    public void init(int[][] arr);
+    public void init(int[][] arr); // done
 
     /**
      * Computes a deep copy of the underline 2D matrix.
      * @return a deep copy of the underline matrix.
      */
-    public int[][] getMap();
+    public int[][] getMap(); //done
 
     /**
      * @return the width of this 2D map (first coordinate).
      */
-    public int getWidth();
+    public int getWidth(); //done
 
     /**
      * @return the height of this 2D map (second coordinate).
      */
-    public int getHeight();
+    public int getHeight();//done
 
     /**
      * @param x the x coordinate
      * @param y the y coordinate
      * @return the [x][y] (int) value of the map[x][y].
      */
-    public int getPixel(int x, int y);
+    public int getPixel(int x, int y);// done
     /**
      * @param p the x,y coordinate
      * @return the [p.x][p.y] (int) value of the map.
      */
-    public int getPixel(Pixel2D p);
+    public int getPixel(Pixel2D p); // done
 
     /**
      * Set the [x][y] coordinate of the map to v.
@@ -62,19 +62,19 @@ public interface Map2D {
      * @param y the y coordinate
      * @param v the value that the entry at the coordinate [x][y] is set to.
      */
-    public void setPixel(int x, int y, int v);
+    public void setPixel(int x, int y, int v); //done
     /**
      * Set the [x][y] coordinate of the map to v.
      * @param p the coordinate in the map.
      * @param v the value that the entry at the coordinate [p.x][p.y] is set to.
      */
-    public void setPixel(Pixel2D p, int v);
+    public void setPixel(Pixel2D p, int v); // done
 
     /**
      * @param p the 2D coordinate.
      * @return true iff p is with in this map.
      */
-    boolean isInside(Pixel2D p);
+    boolean isInside(Pixel2D p); //done
 
     /**
      * This method returns true if and only if this Map2D has the same dimensions as p.
