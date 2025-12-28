@@ -16,7 +16,7 @@ public class Ex2_GUI {
 
         int w = map.getWidth();
         int h = map.getHeight();
-        int[][] mat = new int[w][h];
+        int[][] mat = new int[h][w];
         for(int y = 0; y < h; y++) {
             for(int x = 0; x < w; x++) {
                 mat[y][x] = map.getPixel(x,y);
@@ -37,10 +37,10 @@ public class Ex2_GUI {
             int w = sc.nextInt();
             int h = sc.nextInt();
 
-            int[][] mat = new int[w][h];
+            int[][] mat = new int[h][w];
             for (int y = 0; y < h; y++) {
                 for (int x = 0; x < w; x++) {
-                    mat[x][y] = sc.nextInt();
+                    mat[y][x] = sc.nextInt();
                 }
             }
             sc.close();
@@ -90,7 +90,7 @@ public class Ex2_GUI {
 
 
         map.fill(new Index2D(2,2), 2, false);
-
+        map.rescale(6.7, 5.9);
         //map.drawRect(new Index2D(0,2), new Index2D(1,1), 3);
         //map.drawCircle(new Index2D(2,3), 1, 4);
 

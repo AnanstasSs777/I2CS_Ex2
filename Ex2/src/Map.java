@@ -12,10 +12,7 @@ import java.util.Comparator;
 public class Map implements Map2D, Serializable{
     private int[][] _ris;
 
-
-
     // ris==risunok==image on matrix
-    // edit this class below
 	/**
 	 * Constructs a w*h 2D raster map with an init value v.
 	 * @param w
@@ -261,11 +258,14 @@ public class Map implements Map2D, Serializable{
         }
         //
         int[][] nm = new int[w2][h2];
-        for (int i = 0; i < w; i++) {
-            for (int j = 0; j < h; j++) {
-                int newX =  (int)((i/(double)w)*w2);// for right res instead of 1 and 0 - double
-                int newY =  (int)((j/(double)h)*h2);
-                nm[newX][newY] = this._ris[i][j];
+        for (int i = 0; i < w2; i++) {
+            for (int j = 0; j < h2; j++) {
+                int oldX =  (int)((i/sx));// for right res instead of 1 and 0 - double
+                int oldY =  (int)((j/sy));
+                // exception
+                if(oldX >= w) oldX = w-1;
+                if(oldY >= h) oldY = h-1;
+                nm[i][j] = this._ris[oldX][oldY];
             }
         }
         _ris = nm; // question is if I have to save old map or not
@@ -603,8 +603,8 @@ public class Map implements Map2D, Serializable{
                 int ay = y + dir[1];
 
                 if (cyclic) {
-                    ax = (ax + 1) % w;
-                    ay = (ay + 1) % h;
+                    ax = (ax + w) % w;
+                    ay = (ay + h) % h;
                 }
                 if (ax < 0 || ax >= w || ay < 0 || ay >= h ||
                         visited[ax][ay] || getPixel(ax, ay) == obsColor){
