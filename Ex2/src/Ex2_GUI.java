@@ -79,18 +79,18 @@ public class Ex2_GUI {
     public static void main(String[] a) {
         // I drew a heart :)
         int[][] mat = {
-                {0,1,1,0,0},
-                {1,1,1,1,0},
-                {0,1,1,1,1},
-                {1,1,1,1,0},
-                {0,1,1,0,0},
+                {0,1,0,1,0},
+                {1,1,1,1,1},
+                {1,1,1,1,1},
+                {0,1,1,1,0},
+                {0,0,1,0,0},
         };
 
         Map2D map = new Map(mat);
 
 
         map.fill(new Index2D(2,2), 2, false);
-        map.rescale(6.7, 5.9);
+        //map.rescale(6.7, 5.9);
         //map.drawRect(new Index2D(0,2), new Index2D(1,1), 3);
         //map.drawCircle(new Index2D(2,3), 1, 4);
 
@@ -99,11 +99,11 @@ public class Ex2_GUI {
 
     /// ///////////// Private functions ///////////////
     public static void drawMat(int[][] mat) {
-        StdDraw.clear();
         int rows = mat.length;
         int cols = mat[0].length;
-        double cellSize = 1.0 / Math.max(rows, cols);
-        double padding = 0.05 * cellSize;
+        int max = Math.max(rows, cols);
+        StdDraw.setScale(0, max);
+        StdDraw.clear();
 
         for(int y = 0; y < rows; y++) {
             for(int x = 0; x < cols; x++) {
@@ -114,12 +114,16 @@ public class Ex2_GUI {
                 else if(v == 3) StdDraw.setPenColor(StdDraw.PINK);
                 else if(v == 4) StdDraw.setPenColor(StdDraw.GREEN);
                 else StdDraw.setPenColor(StdDraw.BLACK);
-                double cx = (x + 0.5) * cellSize;
-                double cy = 1.0 - (y + 0.5) * cellSize;
-                StdDraw.filledRectangle(cx, cy, (cellSize - padding) / 2, (cellSize - padding) / 2);
+                StdDraw.setPenRadius(0.003);
+                // for cell indentation instead of outline
+                for (int i = 0; i <= cols; i++) {StdDraw.line(i + 1, 0, i + 1, rows);}
+                for (int i = 0; i <= rows; i++) {StdDraw.line(0, i, cols, i);}
+
+                StdDraw.filledRectangle(y+1, max-x-1, 1, 1);
+
             }
         }
         StdDraw.show();
-        StdDraw.pause(20);
+        StdDraw.pause(2);
     }
 }
