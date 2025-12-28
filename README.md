@@ -41,5 +41,6 @@ The Map class represents a 2D grid of integers (int[w][h]) and supports creating
 a heart. You can see result on the picture. ❆*
 
 **Good luck!**
-<img width="508" height="514" alt="heartEx2" src="https://github.com/user-attachments/assets/9451f6fe-5da7-45b0-adb8-1c06d695175a" />
+
+<img width="513" height="512" alt="heartt" src="https://github.com/user-attachments/assets/f6929c1b-4825-48d0-83fa-175d87658bed" />
 
